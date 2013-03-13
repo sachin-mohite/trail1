@@ -34,11 +34,15 @@ http.createServer(function(req, res) {
 	
 }).listen(8000, "127.0.0.1");
 
-function getFile(localpath, res){
+function getFile(localpath, mimeType, res){
 
 	fs.readFile(localpath, function(err, contents){
 		if(!err)
 		{
+			res.writeHead(200, {
+				"Content-Type" : mimeType,
+					"Content-Length" : contents.length
+			});
 			res.end(contents);
 		}
 		else
